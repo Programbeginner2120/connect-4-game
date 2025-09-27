@@ -1,0 +1,74 @@
+:host {
+    font-size: 16px;
+}
+
+.game-screen-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: linear-gradient(to right, #f9f9fa 0%, #c4b9b1 50%, #d1c7d0 100%);
+}
+
+.game-screen-title {
+    font-size: 3rem;
+    background: linear-gradient(to right, #1983ff 0%, #ff7b26 50%, #ff10d7 100%);
+    -webkit-background-clip: text; /* for Chrome/Safari */
+    -webkit-text-fill-color: transparent; /* makes text transparent to show gradient */
+    background-clip: text; /* for Firefox */
+}
+
+.game-screen-subtitle {
+    font-size: 1.5rem;
+    color: gray;
+}
+
+.game-board-elements-container {
+    flex-grow: 1;
+    border: 1px solid black;
+    width: 50%;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+    margin: 10px;
+}
+
+.game-board {
+    grid-row: 1 / 6;
+    grid-column: 1 / 5;
+    margin: 10px;
+}
+
+.card, .buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    background-color: transparent;
+}
+
+.player-turn-card {
+    grid-row: 1 / 2;
+    grid-column: 5 / 7;
+}
+
+.player-score-card {
+    grid-row: 2 / 4;
+    grid-column: 5 / 7;
+}
+
+.buttons-container {
+    grid-row: 4 / 5;
+    grid-column: 5 / 7;
+}
+
+.how-to-play-card {
+    grid-row: 5 / 7;
+    grid-column: 5 / 7;
+}
