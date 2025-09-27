@@ -3,7 +3,7 @@ import { Injectable, signal } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class Score {
+export class ScoreService {
   private _player1Score = signal<number>(0);
   private _player2Score = signal<number>(0);
 
