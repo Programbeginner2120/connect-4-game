@@ -1,0 +1,41 @@
+:host {
+    font-size: 16px;
+}
+
+.player-turn-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.player-turn-icon {
+    font-size: 1.5rem;
+}
+
+.player-turn-info-container {
+    font-size: 1.5rem;
+}
+
+.current-player-turn-info-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.player-turn-info-icon {
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+.player-1-icon {
+    background-color: red;
+}
+
+.player-2-icon {
+    background-color: blue;
+}

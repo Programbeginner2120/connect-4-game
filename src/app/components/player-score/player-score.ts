@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Score } from '../../services/score/score';
+import { ScoreService } from '../../services/score/score.service';
 
 @Component({
   selector: 'app-player-score',
@@ -9,5 +9,5 @@ import { Score } from '../../services/score/score';
 })
 export class PlayerScore {
   // DI
-  readonly scoreService = inject(Score);
+  readonly scoreService = inject(ScoreService);
 }
