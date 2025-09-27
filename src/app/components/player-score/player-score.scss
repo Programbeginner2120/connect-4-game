@@ -1,0 +1,84 @@
+:host {
+    font-size: 16px;
+}
+
+.player-score-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.player-score-title-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    gap: 10px;
+}
+
+.trophy-icon {
+    font-size: 1.5rem;
+    color: rgb(235, 204, 30);
+}
+
+.player-score-title {
+    font-size: 1.5rem;
+}
+
+.player-scores-values-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.player-score-value-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;            
+    padding: 10px;
+    flex: 1;
+}
+
+.player-score-icon-title-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.player-score-value-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.player-1-icon {
+    background-color: red;
+}
+
+.player-2-icon {
+    background-color: blue;
+}
+
+.player-score-numeric-value-container {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(245, 87, 24);
+    height: 40px;
+    width: 40px;
+}
+
+.player-score-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
