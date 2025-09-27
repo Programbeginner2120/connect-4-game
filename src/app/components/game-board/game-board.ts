@@ -3,6 +3,7 @@ import { GamePiece } from '../game-piece/game-piece';
 import { PieceColor } from '../../interfaces/game-piece.interface';
 import { Player } from '../../interfaces/player.interface';
 import { PlayerTurnService } from '../../services/player-turn/player-turn.service';
+import { ScoreService } from '../../services/score/score.service';
 
 @Component({
   selector: 'app-game-board',
@@ -21,6 +22,7 @@ Player = Player;
 
 // DI
 readonly playerTurnService = inject(PlayerTurnService);
+readonly scoreService = inject(ScoreService);
 
 placePiece(column: number) {
   let currRow = this.rows - 1;
@@ -29,81 +31,69 @@ placePiece(column: number) {
   }
   if (currRow >= 0) {
     this.board[currRow][column] = this.playerTurnService.currentPlayerTurn;
-    // Just gives some time for the view to update
-    setTimeout(() => {
-      this.checkOverallWin();
-    }, 200);
   }
 
-  this.playerTurnService.toggleCurrentPlayerTurn();
+  // Just gives some time for the view to update
+  setTimeout(() => {
+    const winnerFound = this.checkOverallWin();
+    if (winnerFound) {
+      const currentPlayer = this.playerTurnService.currentPlayerTurn;
+      if (currentPlayer === Player.PLAYER_1) {
+        this.scoreService.incrementPlayer1Score();
+      } else {
+        this.scoreService.incrementPlayer2Score();
+      }
+      this.resetBoard();
+    } else {
+      this.playerTurnService.toggleCurrentPlayerTurn();
+    }
+  }, 200);
+  
+  
 }
 
-checkOverallWin() {
-  const winnerFound: boolean = this.checkHorizontalWin() || this.checkVerticalWin() || this.checkTopDownDiagonalWin() || this.checkBottomUpDiagonalWin();
+// TODO: Review this algorithm
+checkOverallWin(): boolean {
+  const directions = [
+    { dr: 0, dc: 1 },   // right
+    { dr: 1, dc: 0 },   // down
+    { dr: 1, dc: 1 },   // down-right
+    { dr: 1, dc: -1 }   // down-left
+  ];
 
-  if (winnerFound) {
-    alert("WINNER FOUND");
-  }
-}
+  for (let row = 0; row < this.board.length; row++) {
+    for (let col = 0; col < this.board[0].length; col++) {
+      const player = this.board[row][col];
+      if (!player) continue;
 
-private checkHorizontalWin() {
-  for (let row = this.board.length - 1; row >= 0; row--) {
-    let consecutiveCount: number = 0;
-    let currentPlayer: Player | null = null;
-    for (let col = 0; col < this.board[row].length; col++) {
-      if (this.board[row][col] != null) {
-        const playerAtPosition: Player = this.board[row][col];
-        if (playerAtPosition) {
-          if (!currentPlayer || currentPlayer === playerAtPosition) {
-            consecutiveCount++;
-          } else {
-            consecutiveCount = 1;
+      for (const { dr, dc } of directions) {
+        let count = 1;
+        for (let k = 1; k < 4; k++) {
+          const nr = row + dr * k;
+          const nc = col + dc * k;
+
+          // Check boundaries
+          if (nr < 0 || nr >= this.board.length || nc < 0 || nc >= this.board[0].length) {
+            break;
           }
-          currentPlayer = playerAtPosition;
-        }
 
-        if (consecutiveCount == 4) {
+          if (this.board[nr][nc] === player) {
+            count++;
+          } else {
+            break;
+          }
+        }
+        if (count === 4) {
           return true;
         }
       }
     }
   }
-
   return false;
 }
 
-private checkVerticalWin() {
-  for (let col = 0; col < this.board[0].length; col++) {
-    let consecutiveCount: number = 0;
-    let currentPlayer: Player | null = null;
-    for (let row = this.board.length - 1; row >= 0; row--) {
-      if (this.board[row][col] != null) {
-        const playerAtPosition: Player = this.board[row][col];
-        if (playerAtPosition) {
-          if (!currentPlayer || currentPlayer === playerAtPosition) {
-            consecutiveCount++;
-          } else {
-            consecutiveCount = 1;
-          }
-          currentPlayer = playerAtPosition;
-        }
-
-        if (consecutiveCount == 4) {
-          return true;
-        }
-      }
-    }
-  }
-
-  return false;
-}
-
-private checkTopDownDiagonalWin() {
-  return false;
-}
-
-private checkBottomUpDiagonalWin() {
-  return false;
+resetBoard() {
+  this.board = Array.from({ length: this.rows }, () => Array(this.columns).fill(null));
 }
 
 }
