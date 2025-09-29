@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { GamePiece } from '../game-piece/game-piece';
 import { PieceColor } from '../../interfaces/game-piece.interface';
 import { Player } from '../../interfaces/player.interface';
@@ -24,7 +24,15 @@ Player = Player;
 readonly playerTurnService = inject(PlayerTurnService);
 readonly scoreService = inject(ScoreService);
 
+// Signals
+isProcessingPiecePlacement: WritableSignal<boolean> = signal(false);
+
 placePiece(column: number) {
+  if (this.isProcessingPiecePlacement()) {
+    return;
+  }
+  this.isProcessingPiecePlacement.set(true);
+
   let currRow = this.rows - 1;
   while (currRow >= 0 && this.board[currRow][column] !== null) {
     currRow--;
@@ -47,6 +55,8 @@ placePiece(column: number) {
     } else {
       this.playerTurnService.toggleCurrentPlayerTurn();
     }
+
+    this.isProcessingPiecePlacement.set(false);
   }, 200);
   
   
