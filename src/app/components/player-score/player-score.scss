@@ -7,8 +7,6 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
 }
 
 .player-score-title-container {
@@ -40,8 +38,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;            
-    padding: 10px;
-    flex: 1;
+    padding: 0 10px;
 }
 
 .player-score-icon-title-container {
