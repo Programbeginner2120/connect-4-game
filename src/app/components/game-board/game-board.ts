@@ -1,4 +1,4 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, inject, signal, viewChildren, WritableSignal } from '@angular/core';
 import { GamePiece } from '../game-piece/game-piece';
 import { PieceColor } from '../../interfaces/game-piece.interface';
 import { Player } from '../../interfaces/player.interface';
@@ -26,6 +26,8 @@ readonly scoreService = inject(ScoreService);
 
 // Signals
 isProcessingPiecePlacement: WritableSignal<boolean> = signal(false);
+
+gameBoardCells = viewChildren<ElementRef>('gameBoardCell');
 
 placePiece(column: number) {
   if (this.isProcessingPiecePlacement()) {
@@ -58,8 +60,34 @@ placePiece(column: number) {
 
     this.isProcessingPiecePlacement.set(false);
   }, 200);
-  
-  
+}
+
+showHoverEffect(column: number) {
+  let currRow = this.rows - 1;
+  while (currRow >= 0 && this.board[currRow][column] !== null) {
+    currRow--;
+  }
+  const gameBoardCell = this.gameBoardCells().find(cell => cell.nativeElement.id === `game-board-cell-${currRow}-${column}`);
+  if (gameBoardCell) {
+    console.log('gameBoardCell', gameBoardCell);
+    if (this.playerTurnService.currentPlayerTurn === Player.PLAYER_1) {
+      gameBoardCell.nativeElement.classList.add('player-1-hover-effect');
+    } else {
+      gameBoardCell.nativeElement.classList.add('player-2-hover-effect');
+    }
+  }
+}
+
+removeHoverEffect(column: number) {
+  let currRow = this.rows - 1;
+  while (currRow >= 0 && this.board[currRow][column] !== null) {
+    currRow--;
+  }
+  const gameBoardCell = this.gameBoardCells().find(cell => cell.nativeElement.id === `game-board-cell-${currRow}-${column}`);
+  if (gameBoardCell) {
+    gameBoardCell.nativeElement.classList.remove('player-1-hover-effect');
+    gameBoardCell.nativeElement.classList.remove('player-2-hover-effect');
+  }
 }
 
 // TODO: Review this algorithm

@@ -2,9 +2,17 @@
     <div class="game-board">
         @for (row of board; track row; let i = $index) {
             @for (cell of row; track cell; let j = $index) {
-                <div class="game-board-cell" (click)="placePiece(j)">
+                <div 
+                #gameBoardCell
+                class="game-board-cell" 
+                id="game-board-cell-{{ i }}-{{ j }}" 
+                (click)="placePiece(j)"
+                (mouseenter)="showHoverEffect(j)"
+                (mouseleave)="removeHoverEffect(j)">
                     @if (cell) {
-                        <app-game-piece [color]="cell === Player.PLAYER_1 ? PieceColor.RED : PieceColor.BLUE"></app-game-piece>
+                        <app-game-piece
+                            [color]="cell === Player.PLAYER_1 ? PieceColor.RED : PieceColor.BLUE"
+                        ></app-game-piece>
                     }
                 </div>
             }
