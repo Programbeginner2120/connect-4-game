@@ -4,20 +4,22 @@
 
     <div class="game-board-elements-container">
         <app-game-board class="game-board"></app-game-board>
-        <app-player-turn class="player-turn-card"></app-player-turn>
-        <app-player-score class="player-score-card"></app-player-score>
-        <app-game-buttons
-         (newGame)="handleNewGame()"
-         (resetScores)="handleResetScores()"
-         class="game-buttons-card"></app-game-buttons>
-        <div class="card how-to-play-card">
-            <h4 class="how-to-play-title">How to play</h4>
-            <ul class="how-to-play-list">
-                <li class="how-to-play-item">Click a column to drop your piece</li>
-                <li class="how-to-play-item">Connect 4 pieces in a row to win</li>
-                <li class="how-to-play-item">Horizontal, vertical, or diagonal counts</li>
-                <li class="how-to-play-item">Take turns with your opponent</li>
-            </ul>
+        <div class="game-board-side-elements-container">
+            <app-player-turn class="player-turn-card"></app-player-turn>
+            <app-player-score class="player-score-card"></app-player-score>
+            <app-game-buttons
+            (newGame)="handleNewGame()"
+            (resetScores)="handleResetScores()"
+            class="game-buttons-card"></app-game-buttons>
+            <div class="card how-to-play-card">
+                <h4 class="how-to-play-title">How to play</h4>
+                <ul class="how-to-play-list">
+                    <li class="how-to-play-item">Click a column to drop your piece</li>
+                    <li class="how-to-play-item">Connect 4 pieces in a row to win</li>
+                    <li class="how-to-play-item">Horizontal, vertical, or diagonal counts</li>
+                    <li class="how-to-play-item">Take turns with your opponent</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
