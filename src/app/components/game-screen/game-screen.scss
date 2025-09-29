@@ -56,11 +56,13 @@
 .player-turn-card {
     grid-row: 1 / 2;
     grid-column: 5 / 7;
+    margin: 10px;
 }
 
 .player-score-card {
     grid-row: 2 / 4;
     grid-column: 5 / 7;
+    margin: 10px;
 }
 
 .buttons-container {
