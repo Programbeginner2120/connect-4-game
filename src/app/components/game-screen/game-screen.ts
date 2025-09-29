@@ -4,6 +4,7 @@ import { PlayerScore } from '../player-score/player-score';
 import { PlayerTurn } from '../player-turn/player-turn';
 import { GameButtons } from '../game-buttons/game-buttons';
 import { ScoreService } from '../../services/score/score.service';
+import { PlayerTurnService } from '../../services/player-turn/player-turn.service';
 
 @Component({
   selector: 'app-game-screen',
@@ -17,8 +18,10 @@ export class GameScreen {
 
   // DI
   readonly scoreService = inject(ScoreService);
+  readonly playerTurnService = inject(PlayerTurnService);
 
   handleNewGame() {
+    this.playerTurnService.resetCurrentPlayerTurn();
     this.gameBoard()?.resetBoard();
   }
 

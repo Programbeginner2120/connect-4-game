@@ -53,6 +53,7 @@ placePiece(column: number) {
       } else {
         this.scoreService.incrementPlayer2Score();
       }
+      this.playerTurnService.resetCurrentPlayerTurn();
       this.resetBoard();
     } else {
       this.playerTurnService.toggleCurrentPlayerTurn();
