@@ -6,10 +6,10 @@
         <app-game-board class="game-board"></app-game-board>
         <app-player-turn class="player-turn-card"></app-player-turn>
         <app-player-score class="player-score-card"></app-player-score>
-        <div class="buttons-container">
-            <button class="new-game-button">New Game</button>
-            <button class="reset-scores-button">Reset Scores</button>
-        </div>
+        <app-game-buttons
+         (newGame)="handleNewGame()"
+         (resetScores)="handleResetScores()"
+         class="game-buttons-card"></app-game-buttons>
         <div class="card how-to-play-card">
             How to play placeholder
         </div>
