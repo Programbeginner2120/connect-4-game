@@ -11,7 +11,7 @@
                 (mouseleave)="removeHoverEffect(j)">
                     @if (cell) {
                         <app-game-piece
-                            [color]="cell === Player.PLAYER_1 ? PieceColor.RED : PieceColor.BLUE"
+                            [player]="cell"
                         ></app-game-piece>
                     }
                 </div>

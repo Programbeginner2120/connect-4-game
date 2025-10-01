@@ -70,7 +70,6 @@ showHoverEffect(column: number) {
   }
   const gameBoardCell = this.gameBoardCells().find(cell => cell.nativeElement.id === `game-board-cell-${currRow}-${column}`);
   if (gameBoardCell) {
-    console.log('gameBoardCell', gameBoardCell);
     if (this.playerTurnService.currentPlayerTurn === Player.PLAYER_1) {
       gameBoardCell.nativeElement.classList.add('player-1-hover-effect');
     } else {

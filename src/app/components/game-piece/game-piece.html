@@ -1,3 +1,6 @@
 <div class="game-piece-container">
-    <div class="game-piece" [style.background-color]="color()"></div>
+    <div class="game-piece" 
+        [ngClass]="player() === Player.PLAYER_1 ? 'game-piece-player-1-border' : 'game-piece-player-2-border'"
+        [style.background-color]="player() === Player.PLAYER_1 ? 'red' : 'blue'">
+    </div>
 </div>
