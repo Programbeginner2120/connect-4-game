@@ -45,7 +45,7 @@ placePiece(column: number) {
 
   // Just gives some time for the view to update
   setTimeout(() => {
-    const winnerFound = this.checkOverallWin();
+    const winnerFound = this.checkOverallWin(currRow, column);
     if (winnerFound) {
       const currentPlayer = this.playerTurnService.currentPlayerTurn;
       if (currentPlayer === Player.PLAYER_1) {
@@ -91,40 +91,41 @@ removeHoverEffect(column: number) {
 }
 
 // TODO: Review this algorithm
-checkOverallWin(): boolean {
+checkOverallWin(row: number, col: number): boolean {
   const directions = [
     { dr: 0, dc: 1 },   // right
     { dr: 1, dc: 0 },   // down
     { dr: 1, dc: 1 },   // down-right
-    { dr: 1, dc: -1 }   // down-left
+    { dr: 1, dc: -1 },   // down-left
+    { dr: -1, dc: 1 }, // up-right
+    { dr: -1, dc: -1 }, // up-left
+    { dr: 0, dc: -1 } // left
   ];
 
-  for (let row = 0; row < this.board.length; row++) {
-    for (let col = 0; col < this.board[0].length; col++) {
-      const player = this.board[row][col];
-      if (!player) continue;
+  const player = this.board[row][col];
+  if (!player) {
+    return false;
+  }
 
-      for (const { dr, dc } of directions) {
-        let count = 1;
-        for (let k = 1; k < 4; k++) {
-          const nr = row + dr * k;
-          const nc = col + dc * k;
+  for (const { dr, dc } of directions) {
+    let count = 1;
+    for (let k = 1; k < 4; k++) {
+      const nr = row + dr * k;
+      const nc = col + dc * k;
 
-          // Check boundaries
-          if (nr < 0 || nr >= this.board.length || nc < 0 || nc >= this.board[0].length) {
-            break;
-          }
-
-          if (this.board[nr][nc] === player) {
-            count++;
-          } else {
-            break;
-          }
-        }
-        if (count === 4) {
-          return true;
-        }
+      // Check boundaries
+      if (nr < 0 || nr >= this.board.length || nc < 0 || nc >= this.board[0].length) {
+        break;
       }
+
+      if (this.board[nr][nc] === player) {
+        count++;
+      } else {
+        break;
+      }
+    }
+    if (count === 4) {
+      return true;
     }
   }
   return false;
